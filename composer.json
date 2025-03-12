@@ -1,0 +1,25 @@
+{
+    "name": "freescout/itkleantimesync",
+    "description": "",
+    "authors": [
+        {
+            "name": "FreeScout",
+            "email": "support@freescout.net"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\ItkLeantimeSync\\Providers\\ItkLeantimeSyncServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ItkLeantimeSync\\": ""
+        }
+    }
+}

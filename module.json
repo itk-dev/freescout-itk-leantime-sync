@@ -1,0 +1,25 @@
+{
+    "name": "ItkLeantimeSync",
+    "alias": "itkleantimesync",
+    "description": "",
+    "version": "1.0.0",
+    "detailsUrl": "",
+    "author": "",
+    "authorUrl": "",
+    "requiredAppVersion": "1.0.2",
+    "license": "AGPL-3.0",
+    "keywords": [],
+    "active": 0,
+    "order": 0,
+    "providers": [
+        "Modules\\ItkLeantimeSync\\Providers\\ItkLeantimeSyncServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "start.php"
+    ],
+    "requires": [],
+    "requiredModules": {
+      "itkprometheus": "1.0.0"
+    }
+}
