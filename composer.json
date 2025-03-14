@@ -2,11 +2,18 @@
     "name": "freescout/itkleantimesync",
     "description": "",
     "authors": [
-        {
-            "name": "FreeScout",
-            "email": "support@freescout.net"
-        }
+      {
+        "name": "Martin Yde Granath",
+        "email": "my@aarhus.dk"
+      }
     ],
+    "license": "MIT",
+    "require": {
+      "php": "^8.1"
+    },
+    "require-dev": {
+      "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2"
+    },
     "extra": {
         "laravel": {
             "providers": [
@@ -16,6 +23,26 @@
                 
             }
         }
+    },
+    "scripts": {
+      "coding-standards-check/phpcs": [
+        "vendor/bin/phpcs --standard=phpcs.xml.dist"
+      ],
+      "coding-standards-check": [
+        "@coding-standards-check/phpcs"
+      ],
+      "coding-standards-apply/phpcs": [
+        "vendor/bin/phpcbf --standard=phpcs.xml.dist"
+      ],
+      "coding-standards-apply": [
+        "@coding-standards-apply/phpcs"
+      ]
+    },
+    "config": {
+      "sort-packages": true,
+      "allow-plugins": {
+        "dealerdirect/phpcodesniffer-composer-installer": true
+      }
     },
     "autoload": {
         "psr-4": {

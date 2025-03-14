@@ -37,24 +37,24 @@ class ItkLeantimeSyncServiceProvider extends ServiceProvider
      */
     public function hooks()
     {
-      Eventy::addAction(
-        'conversation.status_changed',
-        function (Conversation $conversation, $user) {
-          app(Helper::class)
-            ->syncStatus($conversation, $user);
-        },
-        20,
-        3
-      );
-      Eventy::addAction(
-        'conversation.user_changed',
-        function (Conversation $conversation, $user, $prev_user_id) {
-          app(Helper::class)
-            ->syncAssignee($conversation, $user, $prev_user_id);
-        },
-        20,
-        3
-      );
+        Eventy::addAction(
+            'conversation.status_changed',
+            function (Conversation $conversation, $user) {
+                app(Helper::class)
+                ->syncStatus($conversation, $user);
+            },
+            20,
+            3
+        );
+        Eventy::addAction(
+            'conversation.user_changed',
+            function (Conversation $conversation, $user, $prev_user_id) {
+                app(Helper::class)
+                ->syncAssignee($conversation, $user, $prev_user_id);
+            },
+            20,
+            3
+        );
     }
 
     /**
@@ -78,7 +78,8 @@ class ItkLeantimeSyncServiceProvider extends ServiceProvider
             __DIR__.'/../Config/config.php' => config_path('itkleantimesync.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            __DIR__.'/../Config/config.php', 'itkleantimesync'
+            __DIR__.'/../Config/config.php',
+            'itkleantimesync'
         );
     }
 
@@ -87,7 +88,9 @@ class ItkLeantimeSyncServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerViews() {}
+    public function registerViews()
+    {
+    }
 
     /**
      * Register translations.
@@ -101,6 +104,7 @@ class ItkLeantimeSyncServiceProvider extends ServiceProvider
 
     /**
      * Register an additional directory of factories.
+     *
      * @source https://github.com/sebastiaanluca/laravel-resource-flow/blob/develop/src/Modules/ModuleServiceProvider.php#L66
      */
     public function registerFactories()
