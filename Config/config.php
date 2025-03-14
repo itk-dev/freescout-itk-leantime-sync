@@ -1,10 +1,10 @@
 <?php
 $projectKeys = [];
 
-foreach($_ENV as $key => $value){
-  if(preg_match('/^LEANTIME_PROJECT_KEY_MAP/', $key)){
-    $projectKeys[$key] = $value;
-  }
+foreach ($_ENV as $key => $value) {
+    if (preg_match('/^LEANTIME_PROJECT_KEY_MAP/', $key)) {
+        $projectKeys[$key] = $value;
+    }
 }
 
 return [

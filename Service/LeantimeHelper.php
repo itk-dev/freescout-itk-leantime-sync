@@ -63,13 +63,14 @@ final class LeantimeHelper
         Conversation $conversation,
         Thread $thread,
         string $customerName
-    ): ?array {
+    ): ?array
+    {
         $conv = $conversation->getOriginal();
         $leantimeProjectKeys  = \config('itkleantimesync.leantimeProjectKeys');
         $leantimeProjectsMapped = [];
         foreach ($leantimeProjectKeys as $map) {
-          $mapping = explode(',', $map);
-          $leantimeProjectsMapped[$mapping[0]] = $mapping[1];
+            $mapping = explode(',', $map);
+            $leantimeProjectsMapped[$mapping[0]] = $mapping[1];
         }
         $projectId = $leantimeProjectsMapped[$conversation->getAttribute('mailbox_id')];
 
@@ -89,10 +90,10 @@ final class LeantimeHelper
         ]);
 
         if ($leantimeId) {
-          return [
+            return [
             'id' => $leantimeId,
-            'url' => $this->createUrlFromId($leantimeId)
-          ];
+            'url' => $this->createUrlFromId($leantimeId),
+            ];
         }
 
         return null;
@@ -117,13 +118,16 @@ final class LeantimeHelper
     }
 
   /**
+   * Update a Leantime ticket.
+   *
    * @throws \GuzzleHttp\Exception\GuzzleException|\Prometheus\Exception\MetricsRegistrationException
    */
-  public function updateTicket(array $params, int $id): string|ResponseInterface|null {
-      return $this->post('leantime.rpc.Tickets.Tickets.patch', [
+    public function updateTicket(array $params, int $id): string|ResponseInterface|null
+    {
+        return $this->post('leantime.rpc.Tickets.Tickets.patch', [
         'params' => $params,
         'id' => $id,
-      ]);
+        ]);
     }
 
   /**
