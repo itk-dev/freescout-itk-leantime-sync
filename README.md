@@ -5,7 +5,7 @@ Holds service used for connecting to Leantime.
 ## Setup
 
 This plugin uses custom fields on users and on issues.
-When the fields are present and have corresponding values Leantime issues are
+When the fields are present and have corresponding values, Leantime issues are
 updated when Freescout issues change status or assignee.
 
 ### User field:
@@ -20,6 +20,16 @@ updated when Freescout issues change status or assignee.
 
 ## Config
 
+Leantime connection:
+
+```
+# The Leantime scheme & domain name
+LEANTIME_URL=https://example.com
+
+# A Leantime API key
+LEANTIME_API_KEY=
+```
+
 To map Freescout mailboxes to specific projects in Leantime this projects 
 config.php file looks for .env variables starting with 
 ```LEANTIME_PROJECT_KEY_MAP```. i.e: ```LEANTIME_PROJECT_KEY_MAP_SUPPORT```
@@ -32,3 +42,4 @@ Each mapping consists of a Freescout mailbox id and a Leantime project id sepera
 LEANTIME_PROJECT_KEY_MAP_SUPPORT=1,3
 LEANTIME_PROJECT_KEY_MAP_DELTAG_AARHUS_FEEDBACK=2,4
 ```
+
