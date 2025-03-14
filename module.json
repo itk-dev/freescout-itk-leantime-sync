@@ -20,6 +20,8 @@
     ],
     "requires": [],
     "requiredModules": {
-      "itkprometheus": "1.0.0"
+      "itkprometheus": "1.0.0",
+      "customfields": "1.0.37",
+      "userfields": "1.0.4"
     }
 }

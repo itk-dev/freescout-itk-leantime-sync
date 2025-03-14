@@ -46,6 +46,15 @@ class ItkLeantimeSyncServiceProvider extends ServiceProvider
         20,
         3
       );
+      Eventy::addAction(
+        'conversation.user_changed',
+        function (Conversation $conversation, $user, $prev_user_id) {
+          app(Helper::class)
+            ->syncAssignee($conversation, $user, $prev_user_id);
+        },
+        20,
+        3
+      );
     }
 
     /**

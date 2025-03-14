@@ -2,6 +2,8 @@
 
 namespace Modules\ItkLeantimeSync\Service;
 
+use DateInterval;
+use DateTime;
 use Exception;
 use GuzzleHttp\Client;
 use Modules\ItkPrometheus\Service\PrometheusService;
@@ -51,7 +53,7 @@ final class LeantimeHelper
    * @param String $customerName
    *   THe name of the customer.
    *
-   * @return ResponseInterface|string|null
+   * @return array|null
    *   Id of the created Leantime ticket or an error response.
    *
    * @throws \GuzzleHttp\Exception\GuzzleException
@@ -61,19 +63,36 @@ final class LeantimeHelper
         Conversation $conversation,
         Thread $thread,
         string $customerName
-    ): ResponseInterface|string|null
-    {
+    ): ?array {
         $conv = $conversation->getOriginal();
+        $leantimeProjectKeys  = \config('itkleantimesync.leantimeProjectKeys');
+        $leantimeProjectsMapped = [];
+        foreach ($leantimeProjectKeys as $map) {
+          $mapping = explode(',', $map);
+          $leantimeProjectsMapped[$mapping[0]] = $mapping[1];
+        }
+        $projectId = $leantimeProjectsMapped[$conversation->getAttribute('mailbox_id')];
+
+        $now = new DateTime();
+        $interval = new DateInterval('P1W');
+        $nextWeek = $now->add($interval);
+        $nextWeekDate = $nextWeek->format('d/m/Y');
+        $nextWeekTime = $nextWeek->format('h:i A');
 
         $leantimeId = $this->addTicket([
-        'headline' => $conv['subject'],
-        'description' => $this->createHtmlDescription($conv, $customerName, $thread),
-        'status' => self::LEANTIME_TICKET_STATUS,
-        'projectId' => \config('itkleantimesync.leantimeProjectKey'),
+          'headline' => $conv['subject'],
+          'description' => $this->createHtmlDescription($conv, $customerName, $thread),
+          'status' => self::LEANTIME_TICKET_STATUS,
+          'projectId' => $projectId,
+          'dateToFinish' => $nextWeekDate,
+          'timeToFinish' => $nextWeekTime,
         ]);
 
         if ($leantimeId) {
-            return $this->createUrlFromId($leantimeId);
+          return [
+            'id' => $leantimeId,
+            'url' => $this->createUrlFromId($leantimeId)
+          ];
         }
 
         return null;
@@ -101,7 +120,6 @@ final class LeantimeHelper
    * @throws \GuzzleHttp\Exception\GuzzleException|\Prometheus\Exception\MetricsRegistrationException
    */
   public function updateTicket(array $params, int $id): string|ResponseInterface|null {
-      $a = 1;
       return $this->post('leantime.rpc.Tickets.Tickets.patch', [
         'params' => $params,
         'id' => $id,
