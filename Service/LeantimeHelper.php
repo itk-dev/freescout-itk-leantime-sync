@@ -77,7 +77,7 @@ final class LeantimeHelper
         $now = new DateTime();
         $interval = new DateInterval('P1W');
         $nextWeek = $now->add($interval);
-        $nextWeekDate = $nextWeek->format('d/m/Y');
+        $nextWeekDate = $nextWeek->format('m/d/Y');
         $nextWeekTime = $nextWeek->format('h:i A');
 
         $leantimeId = $this->addTicket([
