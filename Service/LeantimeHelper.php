@@ -64,6 +64,19 @@ final class LeantimeHelper
     ): ResponseInterface|string|null
     {
         $conv = $conversation->getOriginal();
+        $leantimeProjectKeys  = \config('itkleantimesync.leantimeProjectKeys');
+        $leantimeProjectsMapped = [];
+        foreach ($leantimeProjectKeys as $map) {
+            $mapping = explode(',', $map);
+            $leantimeProjectsMapped[$mapping[0]] = $mapping[1];
+        }
+        $projectId = $leantimeProjectsMapped[$conversation->getAttribute('mailbox_id')];
+
+        $now = new DateTime();
+        $interval = new DateInterval('P1W');
+        $nextWeek = $now->add($interval);
+        $nextWeekDate = $nextWeek->format('m/d/Y');
+        $nextWeekTime = $nextWeek->format('h:i A');
 
         $leantimeId = $this->addTicket([
         'headline' => $conv['subject'],
