@@ -37,7 +37,7 @@ readonly class Helper
         $status = $conversation->getStatus();
         $leantimeTicketId = $this->getLeantimeId($conversation);
         $now = new DateTime();
-        $currentDate = $now->format('d/m/Y');
+        $currentDate = $now->format('m/d/Y');
         $currentTime = $now->format('h:i A');
 
         if ($leantimeTicketId) {
