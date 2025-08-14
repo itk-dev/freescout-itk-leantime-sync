@@ -87,6 +87,8 @@ final class LeantimeHelper
           'projectId' => $projectId,
           'dateToFinish' => $nextWeekDate,
           'timeToFinish' => $nextWeekTime,
+          'planHours' => 5,
+          'hourRemaining' => 5
         ]);
 
         if ($leantimeId) {
